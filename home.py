@@ -58,8 +58,38 @@ def consultarContatos():
       for j in range(0, 5):
             telaConsulta.formContatos.setItem(i, j, QtWidgets.QTableWidgetItem(str(contatosLidos[i][j])))
 
-# def alterarContato():
-# def excluirContato():
+def alterarContato():
+   linhaContato = telaConsulta.formContatos.currentRow()
+   cursor = banco.cursor()
+   comando_SQL = "SELECT Id FROM contatos"
+   cursor.execute(comando_SQL)
+   contatosLido = cursor.fetchall()
+   valorId = contatosLido[linhaContato][0]
+   
+   campoNome = telaPrincipal.campoNome.text()
+   campoEmail= telaPrincipal.campoEmail.text()
+   campoTelefone = telaPrincipal.campoTelefone.text()
+   tipoTelefone = ""
+   
+   dados = (str(campoNome), str(campoEmail), str(campoTelefone), str(tipoTelefone), str(valorId))
+   comando_SQL_update = "UPDATE FROM contatos SET nome = %s, email = %s, telefoene = %s, tipoTelefone = %s WHERE id="
+
+   
+   cursor.execute(comando_SQL_update, dados)
+   banco.commit()
+
+def excluirContato():
+   linhaContato = telaConsulta.formContatos.currentRow()
+   telaConsulta.formContatos.removeRow(linhaContato)
+
+   cursor = banco.cursor()
+   comando_SQL = "SELECT id FROM contatos"
+   cursor.execute(comando_SQL)
+   contatosLido = cursor.fetchall()
+   valorId = contatosLido[linhaContato][0]
+   cursor.execute("DELETE FROM contatos WHERE id=" + str(valorId))
+   banco.commit()
+
 # def gerarPDF():
 
 def voltar():
@@ -76,6 +106,8 @@ telaConsulta=uic.loadUi(str(script_dir) + "\\listaContatos.ui")
 telaPrincipal.botaoCadastrar.clicked.connect(main)
 telaPrincipal.botaoConsultar.clicked.connect(consultarContatos)
 
+telaConsulta.botaoAlterarContato.clicked.connect(alterarContato)
+telaConsulta.botaoExcluirContato.clicked.connect(excluirContato)
 # telaConsulta.botaoPDF.clicked.connect(gerarPDF)
 telaConsulta.botaoVoltar.clicked.connect(voltar)
 
