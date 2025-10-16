@@ -211,7 +211,7 @@ background-color: rgb(190, 172, 34);</string>
     </property>
    </widget>
 
-   <widget class="QPushButton" name="botaoEnviar">
+   <widget class="QPushButton" name="botaoConsultar">
     <property name="geometry">
      <rect>
       <x>220</x>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>458</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+background-color: rgb(190, 172, 34);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>0</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Contatos&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="formContatos">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>50</y>
+      <width>641</width>
+      <height>271</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+    <column>
+     <property name="text">
+      <string>id</string>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Nome</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Email</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Telefome</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>tipoTelefone</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QPushButton" name="botaoPDF">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>360</y>
+      <width>130</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(252, 251, 255);</string>
+    </property>
+    <property name="text">
+     <string>Gerar PDF</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="botaoAlterarContato">
+    <property name="geometry">
+     <rect>
+      <x>419</x>
+      <y>360</y>
+      <width>130</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(252, 251, 255);</string>
+    </property>
+    <property name="text">
+     <string>Alterar Contato</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="botaoExcluirContato">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>360</y>
+      <width>130</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(252, 251, 255);</string>
+    </property>
+    <property name="text">
+     <string>Excluir Contato</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="botaoVoltar">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>360</y>
+      <width>130</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(252, 251, 255);</string>
+    </property>
+    <property name="text">
+     <string>Voltar</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
