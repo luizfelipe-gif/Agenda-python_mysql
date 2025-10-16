@@ -1,6 +1,8 @@
 import mysql.connector
-from PyQt5 import uic, QtWidgets    # uic = Módulo pra importar interfaces em xml
-from pathlib import Path
+from PyQt5 import uic, QtWidgets    # Módulo pra importar interfaces em xml (UIC).
+from reportlab.pdfgen import canvas # Módulo pra gerar o pdf com os dados vindo do banco.
+from pathlib import Path            # Módulo pra obter o diretório
+
 
 script_dir = Path(__file__).resolve().parent
 
@@ -10,6 +12,7 @@ banco = mysql.connector.connect(
    password = "",
    database = "crud_agenda"
 )
+
 
 def main():
    campoNome = telaPrincipal.campoNome.text()
@@ -43,6 +46,10 @@ def main():
 
    print("Contato cadastrado com sucesso")
 
+
+# def inserirContato:
+
+
 def consultarContatos():
    telaConsulta.show()
    
@@ -57,6 +64,7 @@ def consultarContatos():
    for i in range(0, len(contatosLidos)):
       for j in range(0, 5):
             telaConsulta.formContatos.setItem(i, j, QtWidgets.QTableWidgetItem(str(contatosLidos[i][j])))
+
 
 def alterarContato():
    linhaContato = telaConsulta.formContatos.currentRow()
@@ -78,6 +86,7 @@ def alterarContato():
    cursor.execute(comando_SQL_update, dados)
    banco.commit()
 
+
 def excluirContato():
    linhaContato = telaConsulta.formContatos.currentRow()
    telaConsulta.formContatos.removeRow(linhaContato)
@@ -90,25 +99,57 @@ def excluirContato():
    cursor.execute("DELETE FROM contatos WHERE id=" + str(valorId))
    banco.commit()
 
-# def gerarPDF():
+
+def gerarPDF():
+   cursor = banco.cursor()
+   comando_SQL = "SELECT * FROM contatos"
+   cursor.execute(comando_SQL)
+   contatosLidos = cursor.fetchall()
+   
+   y = 0
+   pdf = canvas.Canvas("lista_contatos.pdf")
+   pdf.setFont("Helvetica-Bold", 22)
+   pdf.drawString(200, 800, "Lista de Contatos")
+   
+   pdf.setFont("Helvetica-Bold", 16)
+   pdf.drawString(10, 750, "ID")
+   pdf.drawString(50, 750, "Nome")
+   pdf.drawString(150, 750, "Email")
+   pdf.drawString(350, 750, "Telefone")
+   pdf.drawString(480, 750, "Tipo de contato")
+   
+   for i in range(0, len(contatosLidos)):
+      y = y + 50
+      pdf.drawString(8, 750 - y, str(contatosLidos[i][0]))
+      pdf.drawString(50, 750 - y, str(contatosLidos[i][1]))
+      pdf.drawString(150, 750 - y, str(contatosLidos[i][2]))
+      pdf.drawString(350, 750 - y, str(contatosLidos[i][3]))
+      pdf.drawString(465, 750 - y, str(contatosLidos[i][4]))
+      
+   pdf.save()
+   print("PDF gerado com sucesso!")
+   
 
 def voltar():
    telaConsulta.close()
-   
-# Criar um app = Importar dependencias
+
+
+# Criando váriavel app que recebe dependencias pra renderizar o aplicativo.
 app=QtWidgets.QApplication([])
 
-# Objeto a ser criado = uic(módulo do PyQt5).(carregar interface)("objeto com os parametros de interface em XML")
+# Objeto a ser criado = uic.(carregar interface XML)("NomeDaInterface.ui").
 telaPrincipal=uic.loadUi(str(script_dir) + "\\telaInicial.ui")
 telaConsulta=uic.loadUi(str(script_dir) + "\\listaContatos.ui")
 
-# NomeDoObjeto.{BuscarObjeto}.{Função}
+# NomeDaTela.NomeDoObjeto.FunçãoInterna.(FunçãoPython).
 telaPrincipal.botaoCadastrar.clicked.connect(main)
-telaPrincipal.botaoConsultar.clicked.connect(consultarContatos)
 
+# telaPrincipal.botaoCriar.clicked.connect(inserirContato)
+telaPrincipal.botaoConsultar.clicked.connect(consultarContatos)
 telaConsulta.botaoAlterarContato.clicked.connect(alterarContato)
 telaConsulta.botaoExcluirContato.clicked.connect(excluirContato)
-# telaConsulta.botaoPDF.clicked.connect(gerarPDF)
+
+telaConsulta.botaoPDF.clicked.connect(gerarPDF)
 telaConsulta.botaoVoltar.clicked.connect(voltar)
 
 telaPrincipal.show()
